@@ -95,4 +95,17 @@ class OrderController extends Controller
             return redirect()->back()->with('error', 'An error occurred while processing the payment: ' . $e->getMessage());
         }
     }
+
+    public function index()
+    {   
+        $user = Auth::user();
+        $orders = Order::where('user_id', Auth::id())->orderBy('created_at', 'desc')->paginate(10);
+        return view('order', compact('orders'));
+    }
+
+    public function show($id)
+    {
+        $order = Order::where('id', $id)->where('user_id', Auth::id())->with('orderDetails.product')->firstOrFail();
+        return view('order_detail', compact('order'));
+    }
 }

@@ -33,6 +33,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit',[ProfileController::class,'edit'])->name('profile.edit');
     Route::put('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/my-orders', [CustomerOrderController::class, 'index'])->name('orders.index');
+    Route::get('/my-orders/{id}', [CustomerOrderController::class, 'show'])->name('orders.show');
 });
 
 Route::prefix('/admin')->middleware('admin')->group(function () {

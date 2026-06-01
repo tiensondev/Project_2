@@ -78,7 +78,6 @@ class UserController extends Controller
             'avatar' => 'nullable|image|mimes:jpg,jpeg,png,webp,gif|max:2048',
         ]);
 
-        // CẬP NHẬT: Lấy chuẩn các trường địa chỉ mới từ request gửi lên
         $data = $request->only(['name', 'email', 'phone', 'province', 'district', 'ward', 'address_detail', 'role']);
 
         if ($request->filled('password')) {

@@ -77,7 +77,7 @@
           <div class="card bg-light mb-3 border-0">
             <div class="card-body p-3">
               <h6 class="fw-bold text-secondary mb-2"><i class="fas fa-map-marker-alt me-1"></i> Shipping Address Information</h6>
-              
+
               {{-- Hiện địa chỉ cũ giúp admin dễ quản lý --}}
               @if($user->province)
               <div class="alert alert-info py-2 small mb-3">
@@ -195,7 +195,7 @@
     }
   }
 
-  document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("DOMContentLoaded", function() {
     const provinceSelect = document.getElementById('province');
     const districtSelect = document.getElementById('district');
     const wardSelect = document.getElementById('ward');
@@ -210,7 +210,7 @@
       })
       .catch(error => console.error('Error fetching provinces:', error));
 
-    provinceSelect.addEventListener('change', function () {
+    provinceSelect.addEventListener('change', function() {
       districtSelect.innerHTML = '<option value="">-- Select District --</option>';
       wardSelect.innerHTML = '<option value="">-- Select Ward --</option>';
       districtSelect.disabled = true;
@@ -233,7 +233,7 @@
       }
     });
 
-    districtSelect.addEventListener('change', function () {
+    districtSelect.addEventListener('change', function() {
       wardSelect.innerHTML = '<option value="">-- Select Ward --</option>';
       wardSelect.disabled = true;
 

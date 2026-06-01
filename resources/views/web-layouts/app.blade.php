@@ -125,8 +125,8 @@
                                 @if(in_array(Auth::user()->role, ['admin', 'manager']))
                                 <li><a class="dropdown-item text-danger" href="{{ route('admin.dashboard') }}">Quản trị viên</a></li>
                                 @endif
-                                <li><a class="dropdown-item" href="{{ route('profile.show')}}">My profile</a></li>
-                                <li><a class="dropdown-item" href="#">Đơn hàng của tôi</a></li>
+                                <li><a class="dropdown-item" href="{{ route('profile.show')}}">My Profile</a></li>
+                                <li><a class="dropdown-item" href="{{ route('orders.index') }}">My Orders</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
