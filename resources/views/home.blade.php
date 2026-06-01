@@ -23,6 +23,24 @@
         text-overflow: ellipsis;
         height: 40px;
     }
+
+    .hot-product-banner {
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .hot-product-banner:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+
+    .hot-product-banner img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
 </style>
 
 <div class="container">
@@ -59,7 +77,9 @@
     </div>
 
     <!-- Categories -->
-    <h3 class="mb-3">Laptop Categories</h3>
+    <h3 class="mb-4 fw-bold text-uppercase position-relative pb-2" style="border-bottom: 2px solid #dc3545; width: fit-content;">
+        CATEGORIES
+    </h3>
 
     <div class="row mb-5">
         @forelse($categories as $category)
@@ -79,7 +99,9 @@
 
 
     <!-- Products -->
-    <h3 class="mb-3">Laptops</h3>
+    <h3 class="mb-4 fw-bold text-uppercase position-relative pb-2" style="border-bottom: 2px solid #dc3545; width: fit-content;">
+        LAPTOPS
+    </h3>
 
     <div class="row g-4">
         @forelse($allProducts as $product)
@@ -111,6 +133,40 @@
             <p class="text-muted">No products available</p>
         </div>
         @endforelse
+
+        <hr class="my-5 text-muted">
+
+        <div class="mb-5">
+            <h3 class="mb-4 fw-bold text-uppercase position-relative pb-2" style="border-bottom: 2px solid #dc3545; width: fit-content;">
+                SẢN PHẨM HOT
+            </h3>
+
+            <div class="row g-3">
+                <div class="col-6 col-md-3">
+                    <a href="#" class="d-block hot-product-banner">
+                        <img src="{{ asset('/storage/295x380LenovoIdeapadSlim32-moi-nhat.jpg') }}" alt="Lenovo Ideapad">
+                    </a>
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <a href="#" class="d-block hot-product-banner">
+                        <img src="{{ asset('storage/295x380MacbookM5.jpg') }}" alt="Macbook M5">
+                    </a>
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <a href="#" class="d-block hot-product-banner">
+                        <img src="{{ asset('/storage/295x380HPVICTUS15_bannernew.jpg') }}" alt="HP Victus 15">
+                    </a>
+                </div>
+
+                <div class="col-6 col-md-3">
+                    <a href="#" class="d-block hot-product-banner">
+                        <img src="{{ asset('/storage/295x380BannerDell152025.jpg') }}" alt="Dell 15 2025">
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
