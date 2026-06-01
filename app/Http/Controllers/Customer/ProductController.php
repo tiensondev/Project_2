@@ -37,15 +37,9 @@ class ProductController extends Controller
     {
         $categories = Category::where('status', 1)->get();
 
-        $latestProducts = Product::with('category')
-            ->whereHas('category', function($query) {
-                $query->where('status', 1);
-            })
-            ->latest()
-            ->take(6)
-            ->get();
+        $allProducts = Product::orderBy('created_at', 'desc')->get();
 
-        return view('home', compact('categories', 'latestProducts'));
+        return view('home', compact('categories', 'allProducts'));
     }
 
 

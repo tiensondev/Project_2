@@ -82,7 +82,7 @@
     <h3 class="mb-3">Laptops</h3>
 
     <div class="row g-4">
-        @forelse($latestProducts as $product)
+        @forelse($allProducts as $product)
         <div class="col-6 col-md-4 col-lg-3 d-flex">
             <div class="card w-100 shadow-sm d-flex flex-column">
                 @if(!empty($product->image) && is_array($product->image) && count($product->image) > 0)

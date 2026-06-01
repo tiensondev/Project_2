@@ -10,7 +10,7 @@
         class="brand-image opacity-75 shadow" />
       <!--end::Brand Image-->
       <!--begin::Brand Text-->
-      <span class="brand-text fw-light font-fira">Technology Store</span>
+      <span class="brand-text fw-light font-fira">LAPTOPTECH</span>
       <!--end::Brand Text-->
     </a>
     <!--end::Brand Link-->
