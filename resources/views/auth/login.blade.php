@@ -1,6 +1,6 @@
 @extends('web-layouts.app')
 
-@section('title', 'Đăng nhập')
+@section('title', 'Login')
 
 @section('content')
 <div class="container mt-5">
@@ -8,7 +8,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="text-center">Đăng nhập</h3>
+                    <h3 class="text-center">Login</h3>
                 </div>
                 <div class="card-body">
                     @if ($errors->any())
@@ -31,7 +31,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="password" class="form-label">Mật khẩu</label>
+                            <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control @error('password') is-invalid @enderror"
                                    id="password" name="password" required>
                             @error('password')
@@ -41,16 +41,16 @@
 
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                            <label class="form-check-label" for="remember">Ghi nhớ đăng nhập</label>
+                            <label class="form-check-label" for="remember">Remember me</label>
                         </div>
 
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                            <button type="submit" class="btn btn-primary">Login</button>
                         </div>
                     </form>
 
                     <div class="text-center mt-3">
-                        <p>Chưa có tài khoản? <a href="{{ route('register') }}">Đăng ký ngay</a></p>
+                        <p>Don't have an account? <a href="{{ route('register') }}">Register now</a></p>
                     </div>
                 </div>
             </div>

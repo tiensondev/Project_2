@@ -32,11 +32,13 @@
                             <p class="mb-0 text-dark">
                                 <strong>Status:</strong>
                                 @if($order->status == 1 || $order->status == 'pending')
-                                    <span class="badge bg-warning text-dark ms-1">Pending</span>
-                                @elseif($order->status == 2 || $order->status == 'completed')
-                                    <span class="badge bg-success ms-1">Completed</span>
+                                <span class="badge bg-warning text-dark ms-1">Pending</span>
+                                @elseif($order->status == 2 || $order->status == 'processing')
+                                <span class="badge bg-info text-dark ms-1">Processing</span>
+                                @elseif($order->status == 3 || $order->status == 'completed')
+                                <span class="badge bg-success ms-1">Completed</span>
                                 @else
-                                    <span class="badge bg-secondary ms-1">{{ ucfirst($order->status) }}</span>
+                                <span class="badge bg-danger ms-1">Cancelled</span>
                                 @endif
                             </p>
                         </div>
@@ -61,27 +63,27 @@
                                     <td>
                                         <div class="d-flex align-items-center py-1">
                                             @if($detail->product)
-                                                @php
-                                                    $imgSrc = $detail->product->image;
-                                                    if (is_array($imgSrc)) {
-                                                        $imgSrc = $imgSrc[0] ?? null;
-                                                    } elseif (is_string($imgSrc) && str_starts_with($imgSrc, '[')) {
-                                                        $decoded = json_decode($imgSrc, true);
-                                                        $imgSrc = $decoded[0] ?? null;
-                                                    }
-                                                @endphp
+                                            @php
+                                            $imgSrc = $detail->product->image;
+                                            if (is_array($imgSrc)) {
+                                            $imgSrc = $imgSrc[0] ?? null;
+                                            } elseif (is_string($imgSrc) && str_starts_with($imgSrc, '[')) {
+                                            $decoded = json_decode($imgSrc, true);
+                                            $imgSrc = $decoded[0] ?? null;
+                                            }
+                                            @endphp
 
-                                                @if(!empty($imgSrc))
-                                                    <img src="{{ asset('uploads/' . $imgSrc) }}" alt="{{ $detail->product->name }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 5px;" class="me-3 border">
-                                                @else
-                                                    <div class="bg-light border rounded d-flex align-items-center justify-content-center me-3" style="width: 60px; height: 60px;">
-                                                        <i class="fas fa-image text-muted"></i>
-                                                    </div>
-                                                @endif
+                                            @if(!empty($imgSrc))
+                                            <img src="{{ asset('uploads/' . $imgSrc) }}" alt="{{ $detail->product->name }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 5px;" class="me-3 border">
                                             @else
-                                                <div class="bg-light border rounded d-flex align-items-center justify-content-center me-3" style="width: 60px; height: 60px;">
-                                                    <i class="fas fa-exclamation-triangle text-muted"></i>
-                                                </div>
+                                            <div class="bg-light border rounded d-flex align-items-center justify-content-center me-3" style="width: 60px; height: 60px;">
+                                                <i class="fas fa-image text-muted"></i>
+                                            </div>
+                                            @endif
+                                            @else
+                                            <div class="bg-light border rounded d-flex align-items-center justify-content-center me-3" style="width: 60px; height: 60px;">
+                                                <i class="fas fa-exclamation-triangle text-muted"></i>
+                                            </div>
                                             @endif
 
                                             <div>

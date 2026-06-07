@@ -73,11 +73,6 @@
                     @enderror
                 </div>
 
-                <div class="form-group mt-3 mb-3">
-                    <label>Thông số kỹ thuật (Nhập mỗi dòng 1 thông số)</label>
-                    <textarea name="spec_text" id="spec_textarea" class="form-control" rows="6"></textarea>
-                </div>
-
                 <div class="mb-3">
                     <label for="image" class="form-label">Product Images</label>
                     <input type="file" name="image[]" class="form-control @error('image.*') is-invalid @enderror" id="image" onchange="previewImages(event)" accept="image/*" multiple>

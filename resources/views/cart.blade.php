@@ -40,7 +40,7 @@
                             <span>{{ $item->product->name }}</span>
                         </div>
                     </td>
-                    <td class="text-center">{{ number_format($item->product->price, 0, ',', '.') }}đ</td>
+                    <td class="text-center">{{ number_format($item->productDetail->price, 0, ',', '.') }}đ</td>
                     <td class="text-center">
                         <form action="{{ route('cart.update') }}" method="POST" class="d-flex justify-content-center">
                             @csrf
@@ -49,7 +49,7 @@
                             <input type="number" name="quantity" class="form-control form-control-sm text-center quantity-input" value="{{ $item->quantity }}" min="1" style="width: 80px;" onchange="this.form.submit()">
                         </form>
                     </td>
-                    <td class="text-center fw-bold text-primary">{{ number_format($item->product->price * $item->quantity, 0, ',', '.') }}đ</td>
+                    <td class="text-center fw-bold text-primary">{{ number_format($item->productDetail->price * $item->quantity, 0, ',', '.') }}đ</td>
 
                     <td class="text-center">
                         <form action="{{ route('cart.remove') }}" method="POST" class="d-inline-block" onsubmit="return confirm('Are you sure you want to remove this product from cart?')">
@@ -71,7 +71,7 @@
         @php
         $grandTotal = 0;
         foreach($cartItems as $item) {
-        $grandTotal += $item->product->price * $item->quantity;
+        $grandTotal += $item->productDetail->price * $item->quantity;
         }
         @endphp
         <h4 class="fw-bold">Grand Total: <span class="text-danger">{{ number_format($grandTotal, 0, ',', '.') }} đ</span></h4>

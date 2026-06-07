@@ -63,7 +63,7 @@ class LoginController extends Controller
             'phone' => $request->phone,
             'address' => $request->address,
             'password' => Hash::make($request->password),
-            'role' => 'user', // Default role
+            'role' => 'user', 
         ]);
 
         Auth::login($user);

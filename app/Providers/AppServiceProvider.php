@@ -4,9 +4,10 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
-use App\Models\Cart; 
+use App\Models\Cart;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,23 +18,26 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
-
     public function boot(): void
     {
-        View::share('categories', Category::where('status', 1)->get());
+        if (Schema::hasTable('categories')) {
+            View::share('categories', Category::where('status', 1)->get());
+        } else {
+            View::share('categories', collect());
+        }
 
         View::composer('web-layouts.app', function ($view) {
             $cartCount = 0;
 
-            if (Auth::check()) {
+            if (Auth::check() && Schema::hasTable('carts') && Schema::hasTable('cart_items')) {
                 $cart = Cart::where('user_id', Auth::id())->with('items')->first();
-                
+
                 if ($cart) {
                     $cartCount = $cart->items->sum('quantity');
                 }
             }
 
             $view->with('cartCount', $cartCount);
-        }); 
+        });
     }
 }

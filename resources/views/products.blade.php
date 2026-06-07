@@ -46,18 +46,24 @@
         @forelse($products as $product)
         <div class="col-md-3 d-flex align-items-stretch mb-4">
             <div class="card shadow-sm h-100 w-100 d-flex flex-column">
-                
+
                 <div class="product-img-wrapper">
                     @if(!empty($product->image) && is_array($product->image) && count($product->image) > 0)
-                        <img src="{{ asset('uploads/' . $product->image[0]) }}" alt="{{ $product->name }}" class="img-fluid">
+                    <img src="{{ asset('uploads/' . $product->image[0]) }}" alt="{{ $product->name }}" class="img-fluid">
                     @else
-                        <img src="https://via.placeholder.com/358x358" alt="{{ $product->name }}" class="img-fluid">
+                    <img src="https://via.placeholder.com/358x358" alt="{{ $product->name }}" class="img-fluid">
                     @endif
                 </div>
 
                 <div class="card-body text-center d-flex flex-column mt-auto">
                     <h6 class="card-title-custom fw-bold">{{ $product->name }}</h6>
-                    <p class="text-danger fw-bold mb-1">{{ number_format($product->price, 0, ',', '.') }} đ</p>
+                    <p class="text-danger fw-bold mb-1">
+                        @if($product->details->count() > 0)
+                        From {{ number_format($product->details->min('price'), 0, ',', '.') }} đ
+                        @else
+                        {{ number_format($product->price, 0, ',', '.') }} đ
+                        @endif
+                    </p>
                     <p class="text-muted small mb-1">Stock: {{ $product->stock }}</p>
                     <p class="text-muted small mb-3">{{ $product->category->name ?? 'N/A' }}</p>
 

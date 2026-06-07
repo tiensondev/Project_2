@@ -36,13 +36,17 @@ class DashboardController extends Controller
             ->orderBy('month_number')
             ->get();
 
-        $monthlyLabels = $monthlyData
-            ->pluck('month_name')
-            ->toArray();
+        $monthlyLabels = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
 
-        $monthlyRevenue = $monthlyData
-            ->pluck('revenue')
-            ->toArray();
+        $monthlyRevenue = array_fill(0,12,0);
+
+        foreach ($monthlyData as $data) {
+            $index = $data->month_number - 1; 
+            $monthlyRevenue[$index] = $data->revenue;
+        }
 
         /// Weekly revenue    
         $weeklyData = DB::table('orders')

@@ -115,4 +115,37 @@ class OrderController extends Controller
                 ->with('error', 'Failed to delete order: ' . $e->getMessage());
         }
     }
+
+    public function search(Request $request)
+{
+    $query = Order::query();
+
+    if ($request->filled('id')) {
+        $query->where('id', $request->id);
+    }
+
+    if ($request->filled('customer_name')) {
+        $query->where('customer_name', 'like', '%' . $request->customer_name . '%');
+    }
+
+    if ($request->filled('phone')) {
+        $query->where('phone', 'like', '%' . $request->phone . '%');
+    }
+
+    if ($request->filled('status')) {
+        $query->where('status', $request->status);
+    }
+
+    if ($request->filled('from_date')) {
+        $query->whereDate('created_at', '>=', $request->from_date);
+    }
+
+    if ($request->filled('to_date')) {
+        $query->whereDate('created_at', '<=', $request->to_date);
+    }
+
+    $orders = $query->latest()->paginate(10);
+
+    return view('admin.orders.list', compact('orders'));
+}
 }

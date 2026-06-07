@@ -101,7 +101,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <h3 class="fw-bold mb-0">{{ $todayRevenue }}</h3>
+                            <h3 class="fw-bold mb-0">{{ number_format($todayRevenue, 0, ',', '.') }} đ</h3>
                             <p class="mb-0">Today's Revenue</p>
                         </div>
                         <i class="bi bi-currency-dollar fs-2 opacity-25"></i>

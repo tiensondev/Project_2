@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductDetailController;
 use App\Http\Controllers\Customer\ProductController as CustomerProductController;
 use App\Http\Controllers\Customer\CartController;
 use App\Http\Controllers\Customer\OrderController as CustomerOrderController;
@@ -31,10 +32,12 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/cart/remove', [CartController::class, 'removeFromCart'])->name('cart.remove');
     Route::post('/checkout', [CustomerOrderController::class, 'checkout'])->name('cart.checkout');
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
-    Route::get('/profile/edit',[ProfileController::class,'edit'])->name('profile.edit');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/my-orders', [CustomerOrderController::class, 'index'])->name('orders.index');
     Route::get('/my-orders/{id}', [CustomerOrderController::class, 'show'])->name('orders.show');
+    // Route::post('/my-orders/{id}/cancel', [CustomerOrderController::class, 'cancel'])->name('orders.cancel');
+    // Route::post('/my-orders/{id}/confirm', [CustomerOrderController::class, 'confirmReceived'])->name('orders.confirm');
 });
 
 Route::prefix('/admin')->middleware('admin')->group(function () {
@@ -52,10 +55,12 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
     });
 
     Route::prefix('/orders')->group(function () {
+        Route::get('/search', [AdminOrderController::class, 'search'])->name('admin.orders.search');
         Route::resource('orders', AdminOrderController::class)->names('admin.orders');
     });
+
     Route::get('revenue', [AdminOrderController::class, 'revenue'])->name('admin.orders.revenue');
-    
+
     Route::prefix('/products')->group(function () {
         Route::get('/', [AdminProductController::class, 'index'])->name('admin.products.list');
         Route::get('/search', [AdminProductController::class, 'search'])->name('admin.products.search');
@@ -65,6 +70,17 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
         Route::get('/{id}/edit', [AdminProductController::class, 'edit'])->name('admin.products.edit');
         Route::put('/{id}', [AdminProductController::class, 'update'])->name('admin.products.update');
         Route::delete('/{id}', [AdminProductController::class, 'destroy'])->name('admin.products.destroy');
+    });
+
+    Route::prefix('/product-details')->group(function () {
+        Route::get('/', [ProductDetailController::class, 'index'])->name('admin.product-details.index');
+        Route::get('/search', [ProductDetailController::class, 'search'])->name('admin.product-details.search');
+        Route::get('/create', [ProductDetailController::class, 'create'])->name('admin.product-details.create');
+        Route::post('/', [ProductDetailController::class, 'store'])->name('admin.product-details.store');
+        Route::get('/{productDetail}', [ProductDetailController::class, 'show'])->name('admin.product-details.show');
+        Route::get('/{productDetail}/edit', [ProductDetailController::class, 'edit'])->name('admin.product-details.edit');
+        Route::put('/{productDetail}', [ProductDetailController::class, 'update'])->name('admin.product-details.update');
+        Route::delete('/{productDetail}', [ProductDetailController::class, 'destroy'])->name('admin.product-details.destroy');
     });
 
     Route::prefix('/categories')->group(function () {

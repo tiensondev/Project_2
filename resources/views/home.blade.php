@@ -119,8 +119,14 @@
 
                 <div class="card-body text-center d-flex flex-column mt-auto">
                     <h6 class="card-title-custom fw-bold">{{ $product->name }}</h6>
-                    <p class="text-danger fw-bold mb-1">{{ number_format($product->price, 0) }} đ</p>
-                    <p class="text-muted small mb-1">Stock: {{ $product->stock }}</p>
+                    <p class="text-danger fw-bold mb-1">
+                        @if($product->details->count() > 0)
+                            From {{ number_format($product->details->min('price'), 0, ',', '.') }} đ
+                        @else
+                        {{ number_format($product->price, 0, ',', '.') }} đ
+                        @endif
+                    </p>
+                    <p class="text-muted small mb-1">Stock: {{ $product->details->sum('stock') }}</p>
                     <p class="text-muted small mb-3">{{ $product->category->name ?? 'N/A' }}</p>
                     <a href="{{ route('products.show', $product->id) }}" class="btn btn-primary btn-sm mt-auto w-100">
                         View Details
@@ -143,7 +149,7 @@
 
             <div class="row g-3">
                 <div class="col-6 col-md-3">
-                    <a href="#" class="d-block hot-product-banner">
+                    <a href="{{ route('products.show', $product->id = 9) }}" class="d-block hot-product-banner">
                         <img src="{{ asset('/storage/295x380LenovoIdeapadSlim32-moi-nhat.jpg') }}" alt="Lenovo Ideapad">
                     </a>
                 </div>

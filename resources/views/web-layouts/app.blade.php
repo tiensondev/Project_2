@@ -74,7 +74,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: var(--header-bg); box-shadow: 0 2px 10px rgba(0,0,0,0.3);">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="/">
-                <i class="bi bi-laptop me-2"></i> LAPTOP<span>TECH</span>
+                <i class="bi bi-laptop me-2"></i>LAPTOP<span>TECH</span>
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
@@ -83,10 +83,10 @@
 
             <div class="collapse navbar-collapse" id="navbarMain">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="/">Trang chủ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                            Sản phẩm
+                            Categories
                         </a>
                         <ul class="dropdown-menu shadow">
                             @if(isset($categories) && $categories->count() > 0)
@@ -98,15 +98,15 @@
                             </li>
                             @endforeach
                             @else
-                            <li><a class="dropdown-item" href="#">Đang cập nhật...</a></li>
+                            <li><a class="dropdown-item" href="#">Updating...</a></li>
                             @endif
                         </ul>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="#">Khuyến mãi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Promotions</a></li>
                 </ul>
 
                 <form class="d-flex mx-lg-4 my-2 my-lg-0 w-100" action="{{ route('products.search') }}" method="GET" style="max-width: 400px;">
-                    <input class="form-control search-box" type="search" placeholder="Tìm laptop, chuột, bàn phím..." name="query">
+                    <input class="form-control search-box" type="search" placeholder="Search laptops, mice, keyboards..." name="query">
                     <button class="btn btn-primary search-btn" type="submit">
                         <i class="bi bi-search"></i>
                     </button>
@@ -115,7 +115,7 @@
                 <div class="d-flex align-items-center">
                     <ul class="navbar-nav">
                         @guest
-                        <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Đăng nhập</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                         @else
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-info" href="#" data-bs-toggle="dropdown">
@@ -123,7 +123,7 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end shadow">
                                 @if(in_array(Auth::user()->role, ['admin', 'manager']))
-                                <li><a class="dropdown-item text-danger" href="{{ route('admin.dashboard') }}">Quản trị viên</a></li>
+                                <li><a class="dropdown-item text-danger" href="{{ route('admin.dashboard') }}">Admin</a></li>
                                 @endif
                                 <li><a class="dropdown-item" href="{{ route('profile.show')}}">My Profile</a></li>
                                 <li><a class="dropdown-item" href="{{ route('orders.index') }}">My Orders</a></li>
@@ -133,7 +133,7 @@
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
-                                        <button type="submit" class="dropdown-item">Đăng xuất</button>
+                                        <button type="submit" class="dropdown-item">Logout</button>
                                     </form>
                                 </li>
                             </ul>
@@ -163,7 +163,7 @@
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <h5 class="text-primary fw-bold">LAPTOPTECH</h5>
-                    <p class="small text-secondary">Chuyên cung cấp các dòng Laptop chính hãng và linh kiện máy tính chất lượng cao tại Việt Nam.</p>
+                    <p class="small text-secondary">Provide high-quality laptops and computer components at competitive prices in Vietnam.</p>
                     <div class="d-flex gap-3 fs-5 text-secondary">
                         <i class="bi bi-facebook"></i>
                         <i class="bi bi-youtube"></i>
@@ -171,16 +171,16 @@
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
-                    <h5 class="fw-bold text-white">Chính sách</h5>
+                    <h5 class="fw-bold text-white">Policies</h5>
                     <ul class="list-unstyled small text-secondary">
-                        <li><a href="#" class="text-secondary text-decoration-none">Chính sách bảo hành</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">Giao hàng & Đổi trả</a></li>
-                        <li><a href="#" class="text-secondary text-decoration-none">Trả góp 0%</a></li>
+                        <li><a href="#" class="text-secondary text-decoration-none">Warranty Policy</a></li>
+                        <li><a href="#" class="text-secondary text-decoration-none">Shipping & Returns</a></li>
+                        <li><a href="#" class="text-secondary text-decoration-none">0% Interest Installments</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-4">
-                    <h5 class="fw-bold text-white">Liên hệ</h5>
-                    <p class="small text-secondary mb-1"><i class="bi bi-geo-alt me-2"></i> Hà Nội, Việt Nam</p>
+                    <h5 class="fw-bold text-white">Contact</h5>
+                    <p class="small text-secondary mb-1"><i class="bi bi-geo-alt me-2"></i> Hanoi, Vietnam</p>
                     <p class="small text-secondary mb-1"><i class="bi bi-telephone me-2"></i> 0123 456 789</p>
                     <p class="small text-secondary"><i class="bi bi-envelope me-2"></i> support@laptoptech.com</p>
                 </div>

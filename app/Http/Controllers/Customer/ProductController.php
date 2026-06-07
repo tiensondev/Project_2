@@ -15,7 +15,6 @@ class ProductController extends Controller
             $query->where('status', 1);
         });
 
-        // Filter by category if provided
         if ($request->has('category') && $request->category) {
             $query->where('category_id', $request->category);
         }

@@ -62,6 +62,12 @@
                 <p>Users</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="{{ route('admin.product-details.index') }}" class="nav-link">
+                <i class="nav-icon bi bi-info-circle"></i>
+                <p>Product Details</p>
+              </a>
+            </li>
           </ul>
           <!--end::Sidebar Menu-->
           <hr>
