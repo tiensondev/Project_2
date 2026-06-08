@@ -149,7 +149,7 @@
 
             <div class="row g-3">
                 <div class="col-6 col-md-3">
-                    <a href="{{ route('products.show', $product->id = 9) }}" class="d-block hot-product-banner">
+                    <a href="#" class="d-block hot-product-banner">
                         <img src="{{ asset('/storage/295x380LenovoIdeapadSlim32-moi-nhat.jpg') }}" alt="Lenovo Ideapad">
                     </a>
                 </div>

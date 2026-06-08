@@ -25,7 +25,7 @@
             @endif
 
             <form method="POST"
-                action="{{ route('admin.product-details.update', $detail->id) }}">
+                action="{{ route('admin.product-details.update', $productDetail->id) }}">
 
                 @csrf
                 @method('PUT')
@@ -41,7 +41,7 @@
 
                         @foreach($products as $product)
                         <option value="{{ $product->id }}"
-                            {{ old('product_id', $detail->product_id) == $product->id ? 'selected' : '' }}>
+                            {{ old('product_id', $productDetail->product_id) == $product->id ? 'selected' : '' }}>
                             {{ $product->name }}
                         </option>
                         @endforeach
@@ -64,7 +64,7 @@
                             <input type="text"
                                 name="cpu"
                                 class="form-control"
-                                value="{{ old('cpu', $detail->cpu) }}">
+                                value="{{ old('cpu', $productDetail->cpu) }}">
                         </div>
                     </div>
 
@@ -75,7 +75,7 @@
                             <input type="text"
                                 name="ram"
                                 class="form-control"
-                                value="{{ old('ram', $detail->ram) }}">
+                                value="{{ old('ram', $productDetail->ram) }}">
                         </div>
                     </div>
 
@@ -90,7 +90,7 @@
                             <input type="text"
                                 name="storage"
                                 class="form-control"
-                                value="{{ old('storage', $detail->storage) }}">
+                                value="{{ old('storage', $productDetail->storage) }}">
                         </div>
                     </div>
 
@@ -101,7 +101,7 @@
                             <input type="text"
                                 name="gpu"
                                 class="form-control"
-                                value="{{ old('gpu', $detail->gpu) }}">
+                                value="{{ old('gpu', $productDetail->gpu) }}">
                         </div>
                     </div>
 
@@ -116,7 +116,7 @@
                             <input type="text"
                                 name="screen"
                                 class="form-control"
-                                value="{{ old('screen', $detail->screen) }}">
+                                value="{{ old('screen', $productDetail->screen) }}">
                         </div>
                     </div>
 
@@ -127,7 +127,7 @@
                             <input type="text"
                                 name="color"
                                 class="form-control"
-                                value="{{ old('color', $detail->color) }}">
+                                value="{{ old('color', $productDetail->color) }}">
                         </div>
                     </div>
 
@@ -142,7 +142,7 @@
                             <input type="number"
                                 name="price"
                                 class="form-control @error('price') is-invalid @enderror"
-                                value="{{ old('price', $detail->price) }}"
+                                value="{{ old('price', $productDetail->price) }}"
                                 required>
 
                             @error('price')
@@ -160,7 +160,7 @@
                             <input type="number"
                                 name="stock"
                                 class="form-control @error('stock') is-invalid @enderror"
-                                value="{{ old('stock', $detail->stock) }}"
+                                value="{{ old('stock', $productDetail->stock) }}"
                                 required>
 
                             @error('stock')
@@ -179,7 +179,7 @@
                         Update Product Detail
                     </button>
 
-                    <a href="{{ route('admin.product-details.list') }}"
+                    <a href="{{ route('admin.product-details.index') }}"
                         class="btn btn-secondary px-4">
                         Cancel
                     </a>
