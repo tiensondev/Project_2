@@ -92,11 +92,11 @@
                         </div>
                         <i class="bi bi-tag fs-2 opacity-25"></i>
                     </div>
-                </div>   
+                </div>
                 <a href="{{ route('admin.brands.index') }}"
                     class="card-footer bg-dark bg-opacity-10 text-white text-decoration-none text-center border-0 py-2">
-                    Manage Brands <i class="bi bi-arrow-right-short"></i>    
-            </a>     
+                    Manage Brands <i class="bi bi-arrow-right-short"></i>
+                </a>
             </div>
         </div>
 
@@ -143,54 +143,32 @@
         </div>
     </div>
 
-    {{-- Chart --}}
-
-    <div class="card mt-4 border-0 shadow-sm rounded-3">
-
-    <div class="card-header bg-white">
-        <h5 class="fw-bold mb-0">Revenue Monthly</h5>
-    </div>
-
-    <div class="card-body">
-
-        @include('admin.charts.monthly-chart')
-
-    </div>
-
-    {{-- Chart --}}
-    <div class="card mt-4 border-0 shadow-sm rounded-3">
-        <div class="card-header bg-white">
-            <h5 class="fw-bold mb-0">Revenue Weekly</h5>
-        </div>
-        <div class="card-body">
-            @include('admin.charts.weekly-chart')
-        </div>
-    </div>
-
-    {{-- Quick Actions --}}
-    <div class="row mt-5">
-        <div class="col-12">
-            <div class="card border-0 shadow-sm rounded-3">
-                <div class="card-header bg-white py-3 border-bottom-0">
-                    <h5 class="mb-0 fw-bold">Quick Actions</h5>
+        {{-- Chart --}}
+        <div class="row mt-4">
+            {{-- Monthly Chart --}}
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="card border-0 shadow-sm rounded-3 h-100">
+                    <div class="card-header bg-white py-3 border-bottom-0">
+                        <h5 class="fw-bold mb-0 text-dark">Revenue Monthly</h5>
+                    </div>
+                    <div class="card-body">
+                        @include('admin.charts.monthly-chart')
+                    </div>
                 </div>
+            </div>
 
-                <div class="card-body p-4">
-                    <div class="d-flex gap-3">
-                        <a href="{{ route('admin.products.create') }}"
-                            class="btn btn-primary px-4 py-2">
-                            <i class="bi bi-plus-circle me-2"></i>Add Product
-                        </a>
-
-                        <a href="{{ route('admin.categories.create') }}"
-                            class="btn btn-success px-4 py-2">
-                            <i class="bi bi-folder-plus me-2"></i>Add Category
-                        </a>
+            {{-- Weekly Chart --}}
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm rounded-3 h-100">
+                    <div class="card-header bg-white py-3 border-bottom-0">
+                        <h5 class="fw-bold mb-0 text-dark">Revenue Weekly</h5>
+                    </div>
+                    <div class="card-body">
+                        @include('admin.charts.weekly-chart')
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-</div>
-@endsection
+    </div>
+    @endsection
