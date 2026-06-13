@@ -54,15 +54,15 @@
 
                                     <td class="text-center pe-4">
                                         <div class="d-flex justify-content-center gap-2">
-                                            <a href="{{ route('orders.show', $order->id) }}" class="btn btn-outline-primary btn-sm fw-bold px-3" style="border-radius: 4px;">
-                                                <i class="fas fa-eye me-1"></i> View
+                                            <a href="{{ route('orders.show', $order->id) }}" class="btn btn-primary btn-sm fw-bold px-3" style="border-radius: 4px;">
+                                                View
                                             </a>
 
                                             @if($order->status == '1')
                                             <form action="{{ route('orders.cancel', $order->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to cancel this order?');">
                                                 @csrf
                                                 <button type="submit" class="btn btn-danger btn-sm fw-bold px-3" style="border-radius: 4px;">
-                                                    <i class="fas fa-times me-1"></i> Cancel
+                                                Cancel
                                                 </button>
                                             </form>
                                             @endif

@@ -32,11 +32,9 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
     Route::delete('/cart/remove', [CartController::class, 'removeFromCart'])->name('cart.remove');
     Route::post('/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
-    
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
-    
     Route::get('/my-orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/my-orders/{id}', [OrderController::class, 'show'])->name('orders.show');
     Route::post('/orders/{id}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
@@ -44,21 +42,54 @@ Route::middleware(['auth'])->group(function () {
 
 Route::prefix('/admin')->middleware('admin')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('revenue', [AdminOrderController::class, 'revenue'])->name('admin.orders.revenue');
 
-    Route::get('/users/search', [UserController::class, 'search'])->name('admin.users.search');
-    Route::resource('users', UserController::class)->names('admin.users');
+    Route::prefix('/users')->group(function () {
+        Route::get('/', [UserController::class, 'index'])->name('admin.users.index');
+        Route::get('/search', [UserController::class, 'search'])->name('admin.users.search');
+        Route::get('/create', [UserController::class, 'create'])->name('admin.users.create');
+        Route::post('/', [UserController::class, 'store'])->name('admin.users.store');
+        Route::get('/{id}', [UserController::class, 'show'])->name('admin.users.show');
+        Route::get('/{id}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
+        Route::put('/{id}', [UserController::class, 'update'])->name('admin.users.update');
+        Route::delete('/{id}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+    });
 
-    Route::get('/orders/search', [AdminOrderController::class, 'search'])->name('admin.orders.search');
+    Route::get('orders/search', [AdminOrderController::class, 'search'])->name('admin.orders.search');
     Route::resource('orders', AdminOrderController::class)->names('admin.orders');
 
-    Route::get('/products/search', [AdminProductController::class, 'search'])->name('admin.products.search');
-    Route::resource('products', AdminProductController::class)->names(['index' => 'admin.products.list'])->names('admin.products');
+    Route::get('revenue', [AdminOrderController::class, 'revenue'])->name('admin.orders.revenue');
 
-    Route::get('/product-details/search', [ProductDetailController::class, 'search'])->name('admin.product-details.search');
-    Route::resource('product-details', ProductDetailController::class)->names('admin.product-details');
+    Route::prefix('/products')->group(function () {
+        Route::get('/', [AdminProductController::class, 'index'])->name('admin.products.list');
+        Route::get('/search', [AdminProductController::class, 'search'])->name('admin.products.search');
+        Route::get('/create', [AdminProductController::class, 'create'])->name('admin.products.create');
+        Route::post('/', [AdminProductController::class, 'store'])->name('admin.products.store');
+        Route::get('/{id}', [AdminProductController::class, 'show'])->name('admin.products.show');
+        Route::get('/{id}/edit', [AdminProductController::class, 'edit'])->name('admin.products.edit');
+        Route::put('/{id}', [AdminProductController::class, 'update'])->name('admin.products.update');
+        Route::delete('/{id}', [AdminProductController::class, 'destroy'])->name('admin.products.destroy');
+    });
 
-    Route::resource('categories', CategoryController::class)->names(['index' => 'admin.categories.list'])->names('admin.categories');
+    Route::prefix('/product-details')->group(function () {
+        Route::get('/', [ProductDetailController::class, 'index'])->name('admin.product-details.index');
+        Route::get('/search', [ProductDetailController::class, 'search'])->name('admin.product-details.search');
+        Route::get('/create', [ProductDetailController::class, 'create'])->name('admin.product-details.create');
+        Route::post('/', [ProductDetailController::class, 'store'])->name('admin.product-details.store');
+        Route::get('/{productDetail}', [ProductDetailController::class, 'show'])->name('admin.product-details.show');
+        Route::get('/{productDetail}/edit', [ProductDetailController::class, 'edit'])->name('admin.product-details.edit');
+        Route::put('/{productDetail}', [ProductDetailController::class, 'update'])->name('admin.product-details.update');
+        Route::delete('/{productDetail}', [ProductDetailController::class, 'destroy'])->name('admin.product-details.destroy');
+    });
 
-    Route::resource('brands', BrandController::class)->names('admin.brands');
+    Route::prefix('/categories')->group(function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('admin.categories.list');
+        Route::get('/create', [CategoryController::class, 'create'])->name('admin.categories.create');
+        Route::post('/', [CategoryController::class, 'store'])->name('admin.categories.store');
+        Route::get('/{id}', [CategoryController::class, 'show'])->name('admin.categories.show');
+        Route::get('/{id}/edit', [CategoryController::class, 'edit'])->name('admin.categories.edit');
+        Route::put('/{id}', [CategoryController::class, 'update'])->name('admin.categories.update');
+        Route::delete('/{id}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
+    });
+
+    Route::resource('brands',  BrandController::class)->names('admin.brands');
 });
