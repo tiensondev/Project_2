@@ -25,9 +25,8 @@
 </style>
 
 <div class="container mt-4">
-    <h3 class="mb-4">Product List With Categories: {{ $currentCategory->name ?? 'All Categories' }}</h3>
+    <h3 class="mb-4 fw-bold text-uppercase position-relative pb-2" style="border-bottom: 2px solid #dc3545; width: fit-content;">Product List With Categories: {{ $currentCategory->name ?? 'All Categories' }}</h3>
     <div class="row mb-4 gap-3">
-        {{-- Bộ lọc Categories --}}
         <div class="col-md-12">
             <div class="d-flex align-items-center flex-wrap gap-2">
                 <span class="fw-bold me-2"><i class="bi bi-tags-fill me-1"></i> Categories:</span>

@@ -86,13 +86,36 @@
         <div class="col-md-3">
             <div class="card text-center shadow-sm">
                 <div class="card-body">
-                    <h5>{{ $category->name }}</h5>
+                    <a href="{{ route('category.show', $category->id) }}" class="stretched-link text-decoration-none text-dark">
+                        <h5>{{ $category->name }}</h5>
+                    </a>
                 </div>
             </div>
         </div>
         @empty
         <div class="col-12">
             <p class="text-center">No categories available</p>
+        </div>
+        @endforelse
+    </div>
+
+    <!-- Brands -->
+    <h3 class="mb-4 fw-bold text-uppercase position-relative pb-2" style="border-bottom: 2px solid #dc3545; width: fit-content;">
+        BRANDS
+    </h3>
+
+    <div class="row g-4 mb-5">
+        @forelse($brands as $brand)
+        <div class="col-6 col-sm-4 col-md-3">
+            <div class="card text-center shadow-sm h-100 py-2">
+                <div class="card-body d-flex align-items-center justify-content-center">
+                    <h5 class="mb-0 fw-semibold">{{ $brand->name }}</h5>
+                </div>
+            </div>
+        </div>
+        @empty
+        <div class="col-12">
+            <p class="text-center text-muted">No brands available</p>
         </div>
         @endforelse
     </div>
@@ -121,7 +144,7 @@
                     <h6 class="card-title-custom fw-bold">{{ $product->name }}</h6>
                     <p class="text-danger fw-bold mb-1">
                         @if($product->details->count() > 0)
-                            From {{ number_format($product->details->min('price'), 0, ',', '.') }} đ
+                        From {{ number_format($product->details->min('price'), 0, ',', '.') }} đ
                         @else
                         {{ number_format($product->price, 0, ',', '.') }} đ
                         @endif
@@ -144,7 +167,7 @@
 
         <div class="mb-5">
             <h3 class="mb-4 fw-bold text-uppercase position-relative pb-2" style="border-bottom: 2px solid #dc3545; width: fit-content;">
-                SẢN PHẨM HOT
+                HOT PRODUCT!
             </h3>
 
             <div class="row g-3">

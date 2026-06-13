@@ -89,32 +89,12 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarMain">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                    <li class="nav-item dropdown text-hover-dropdown">
-                        <a class="nav-link dropdown-toggle" href="{{ route('products.index') }}">
-                            Categories
-                        </a>
-                        <ul class="dropdown-menu shadow">
-                            @if(isset($categories) && $categories->count() > 0)
-                            @foreach($categories as $category)
-                            <li>
-                                <a class="dropdown-item" href="{{ route('category.show', $category->id) }}">
-                                    {{ $category->name }}
-                                </a>
-                            </li>
-                            @endforeach
-                            @else
-                            <li><a class="dropdown-item" href="#">Updating...</a></li>
-                            @endif
-                        </ul>
-                    </li>
-                    
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">                    
                     <li class="nav-item"><a class="nav-link" href="{{ route('products.index') }}">Products</a></li>
                 </ul>
 
                 <form class="d-flex mx-lg-4 my-2 my-lg-0 w-100" action="{{ route('products.search') }}" method="GET" style="max-width: 400px;">
-                    <input class="form-control search-box" type="search" placeholder="Search laptops, mice, keyboards..." name="query">
+                    <input class="form-control search-box" type="search" placeholder="Search laptops" name="query">
                     <button class="btn btn-primary search-btn" type="submit">
                         <i class="bi bi-search"></i>
                     </button>

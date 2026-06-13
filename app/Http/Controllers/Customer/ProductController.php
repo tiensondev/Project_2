@@ -33,7 +33,13 @@ class ProductController extends Controller
     {
         $product = Product::with('category')->findOrFail($id);
 
-        return view('product-detail', compact('product'));
+        $relatedProducts = Product::where('category_id', $product->category_id)
+        ->where('id', '!=', $product->id)
+        ->with(['brand', 'details']) 
+        ->take(4)
+        ->get();
+
+        return view('product-detail', compact('product', 'relatedProducts'));
     }
 
     public function home()
