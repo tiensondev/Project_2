@@ -26,16 +26,40 @@
 
 <div class="container mt-4">
     <h3 class="mb-4">Product List With Categories: {{ $currentCategory->name ?? 'All Categories' }}</h3>
-
-    <div class="row mb-4">
+    <div class="row mb-4 gap-3">
+        {{-- Bộ lọc Categories --}}
         <div class="col-md-12">
-            <div class="d-flex flex-wrap gap-2">
-                <a href="{{ route('products.index') }}" class="btn btn-outline-primary {{ !request('category') ? 'active' : '' }}">
+            <div class="d-flex align-items-center flex-wrap gap-2">
+                <span class="fw-bold me-2"><i class="bi bi-tags-fill me-1"></i> Categories:</span>
+
+                <a href="{{ route('products.index', request()->except('category')) }}"
+                    class="btn btn-outline-primary btn-sm {{ !request('category') ? 'active' : '' }}">
                     All Categories
                 </a>
+
                 @foreach($categories as $category)
-                <a href="{{ route('products.index', ['category' => $category->id]) }}" class="btn btn-outline-primary {{ request('category') == $category->id ? 'active' : '' }}">
+                <a href="{{ route('products.index', array_merge(request()->query(), ['category' => $category->id])) }}"
+                    class="btn btn-outline-primary btn-sm {{ request('category') == $category->id ? 'active' : '' }}">
                     {{ $category->name }}
+                </a>
+                @endforeach
+            </div>
+        </div>
+
+        {{-- Bộ lọc Brands --}}
+        <div class="col-md-12">
+            <div class="d-flex align-items-center flex-wrap gap-2">
+                <span class="fw-bold me-2"><i class="bi bi-award-fill me-1"></i> Brands:</span>
+
+                <a href="{{ route('products.index', request()->except('brand')) }}"
+                    class="btn btn-outline-success btn-sm {{ !request('brand') ? 'active' : '' }}">
+                    All Brands
+                </a>
+
+                @foreach($brands as $brand)
+                <a href="{{ route('products.index', array_merge(request()->query(), ['brand' => $brand->id])) }}"
+                    class="btn btn-outline-success btn-sm {{ request('brand') == $brand->id ? 'active' : '' }}">
+                    {{ $brand->name }}
                 </a>
                 @endforeach
             </div>
@@ -64,7 +88,7 @@
                         {{ number_format($product->price, 0, ',', '.') }} đ
                         @endif
                     </p>
-                    <p class="text-muted small mb-1">Stock: {{ $product->stock }}</p>
+                    <p class="text-muted small mb-1">Stock: {{ $product->details->sum('stock') }}</p>
                     <p class="text-muted small mb-3">{{ $product->category->name ?? 'N/A' }}</p>
 
                     <a href="{{ route('products.show', $product->id) }}" class="btn btn-primary btn-sm mt-auto w-100">

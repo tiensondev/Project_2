@@ -81,41 +81,6 @@ class OrderController extends Controller
         }
     }
 
-    public function destroy(Order $order)
-    {
-        DB::beginTransaction();
-
-        try {
-            $order->load('orderDetails.product');
-
-            if ($order->status != Order::STATUS_CANCEL) {
-                foreach ($order->orderDetails as $detail) {
-                    if ($detail->product) {
-                        $product = $detail->product;
-                        $product->stock = $product->stock + $detail->quantity;
-                        $product->save();
-                    }
-                }
-            }
-
-            $order->orderDetails()->delete();
-
-            $order->delete();
-
-            DB::commit();
-
-            return redirect()
-                ->route('admin.orders.index')
-                ->with('success', 'Order and its details deleted, stock updated successfully!');
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()
-                ->route('admin.orders.index')
-                ->with('error', 'Failed to delete order: ' . $e->getMessage());
-        }
-    }
-
     public function search(Request $request)
 {
     $query = Order::query();

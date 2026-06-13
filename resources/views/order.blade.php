@@ -5,10 +5,9 @@
 @section('content')
 <div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-9">
+        <div class="col-md-10">
 
             <div class="card shadow border-0 overflow-hidden" style="border-radius: 8px;">
-                {{-- Header đồng bộ --}}
                 <div class="card-header bg-primary text-white py-3 d-flex justify-content-between align-items-center">
                     <h5 class="mb-0 fw-bold"><i class="fas fa-shopping-bag me-2"></i> My Order History</h5>
                 </div>
@@ -24,11 +23,11 @@
                         <table class="table table-hover align-middle mb-0">
                             <thead class="table-light text-secondary small text-uppercase">
                                 <tr>
-                                    <th class="py-3" width="15%">Order ID</th>
+                                    <th class="py-3 ps-4" width="10%">STT</th>
                                     <th class="py-3">Date</th>
                                     <th class="py-3">Total Amount</th>
                                     <th class="py-3">Status</th>
-                                    <th class="text-center pe-4 py-3">Action</th>
+                                    <th class="text-center pe-4 py-3" width="25%">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,15 +47,26 @@
                                         <span class="badge bg-info text-white px-2 py-1 small">Processing</span>
                                         @elseif($order->status == '3')
                                         <span class="badge bg-success px-2 py-1 small">Completed</span>
-                                        @else($order->status == '0')
+                                        @else
                                         <span class="badge bg-danger px-2 py-1 small">Cancelled</span>
                                         @endif
                                     </td>
 
                                     <td class="text-center pe-4">
-                                        <a href="{{ route('orders.show', $order->id) }}" class="btn btn-primary btn-sm fw-bold px-3" style="border-radius: 4px;">
-                                            View Details
-                                        </a>
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <a href="{{ route('orders.show', $order->id) }}" class="btn btn-outline-primary btn-sm fw-bold px-3" style="border-radius: 4px;">
+                                                <i class="fas fa-eye me-1"></i> View
+                                            </a>
+
+                                            @if($order->status == '1')
+                                            <form action="{{ route('orders.cancel', $order->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to cancel this order?');">
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger btn-sm fw-bold px-3" style="border-radius: 4px;">
+                                                    <i class="fas fa-times me-1"></i> Cancel
+                                                </button>
+                                            </form>
+                                            @endif
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach

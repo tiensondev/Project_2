@@ -16,56 +16,63 @@
             font-family: 'Fira Code', monospace !important;
         }
 
-    :root {
-    --primary-color: white;
-    --header-bg: #1a1d20;
-    }
+        :root {
+            --primary-color: white;
+            --header-bg: #1a1d20;
+        }
 
-    body {
-    display: flex;
-    flex-direction: column;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+        @media (min-width: 992px) {
+            .text-hover-dropdown:hover .dropdown-menu {
+                display: block;
+                margin-top: 0; 
+            }
+        }
 
-    .container {
-    flex: 1 0 auto;
-    }
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    .navbar-brand {
-    font-weight: 800;
-    letter-spacing: 1px;
-    color: var(--primary-color) !important;
-    }
+        .container {
+            flex: 1 0 auto;
+        }
 
-    .nav-link {
-    font-weight: 500;
-    transition: 0.3s;
-    }
+        .navbar-brand {
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--primary-color) !important;
+        }
 
-    .nav-link:hover {
-    color: var(--primary-color) !important;
-    }
+        .nav-link {
+            font-weight: 500;
+            transition: 0.3s;
+        }
 
-    .search-box {
-    border-radius: 20px 0 0 20px;
-    border: none;
-    }
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
 
-    .search-btn {
-    border-radius: 0 20px 20px 0;
-    padding-left: 20px;
-    padding-right: 20px;
-    }
+        .search-box {
+            border-radius: 20px 0 0 20px;
+            border: none;
+        }
 
-    footer {
-    flex-shrink: 0;
-    border-top: 4px solid var(--primary-color);
-    }
+        .search-btn {
+            border-radius: 0 20px 20px 0;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
 
-    .cart-badge {
-    font-size: 0.7rem;
-    vertical-align: top;
-    }
+        footer {
+            flex-shrink: 0;
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .cart-badge {
+            font-size: 0.7rem;
+            vertical-align: top;
+        }
     </style>
 </head>
 
@@ -84,8 +91,8 @@
             <div class="collapse navbar-collapse" id="navbarMain">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                    <li class="nav-item dropdown text-hover-dropdown">
+                        <a class="nav-link dropdown-toggle" href="{{ route('products.index') }}">
                             Categories
                         </a>
                         <ul class="dropdown-menu shadow">
@@ -102,7 +109,8 @@
                             @endif
                         </ul>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="#">Promotions</a></li>
+                    
+                    <li class="nav-item"><a class="nav-link" href="{{ route('products.index') }}">Products</a></li>
                 </ul>
 
                 <form class="d-flex mx-lg-4 my-2 my-lg-0 w-100" action="{{ route('products.search') }}" method="GET" style="max-width: 400px;">

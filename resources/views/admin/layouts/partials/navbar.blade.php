@@ -28,13 +28,13 @@
           <li class="user-body">
             <div class="container-fluid">
               <div class="row border-bottom py-2">
-                <div class="col-5 text-muted"><strong>Điện thoại:</strong></div>
+                <div class="col-5 text-muted"><strong>Phone:</strong></div>
                 <div class="col-7 text-end">
                   <a href="tel:{{ Auth::user()->phone }}" class="text-decoration-none">{{ Auth::user()->phone ?? 'Chưa cập nhật' }}</a>
                 </div>
               </div>
               <div class="row py-2">
-                <div class="col-5 text-muted"><strong>Vai trò:</strong></div>
+                <div class="col-5 text-muted"><strong>Role:</strong></div>
                 <div class="col-7 text-end">
                   <span class="text-decoration-none">{{ Auth::user()->role }}</span>
                 </div>
@@ -46,7 +46,7 @@
           <li class="user-footer">
             <form method="POST" action="{{ route('logout') }}" class="d-inline">
               @csrf
-              <button type="submit" class="btn btn-default btn-flat">Đăng xuất</button>
+              <button type="submit" class="btn btn-default btn-flat">Logout</button>
             </form>
           </li>
           <!--end::Menu Footer-->

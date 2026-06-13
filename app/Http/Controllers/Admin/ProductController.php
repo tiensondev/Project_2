@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\Brand;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
@@ -25,7 +26,8 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::where('status', 1)->get();
-        return view('admin.products.create', compact('categories'));
+        $brands = Brand::all();
+        return view('admin.products.create', compact('categories', 'brands'));
     }
 
     public function store(Request $request)
@@ -35,10 +37,11 @@ class ProductController extends Controller
                 'name' => 'required|string|max:255',
                 'price' => 'required|numeric|min:0',
                 'stock' => 'required|integer|min:0',
+                'brand_id' => 'required|exists:brands,id',
                 'category_id' => 'required|exists:categories,id',
                 'description' => 'nullable|string',
-                'image' => 'nullable|array', // Xác thực đầu vào là một mảng
-                'image.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Xác thực từng file trong mảng
+                'image' => 'nullable|array',
+                'image.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             ],
             [
                 'name.required' => 'Product name is required.',
@@ -48,6 +51,8 @@ class ProductController extends Controller
                 'stock.required' => 'Stock quantity is required.',
                 'stock.integer' => 'Stock must be an integer.',
                 'stock.min' => 'Stock must be at least 0.',
+                'brand_id.required' => 'Brand is required.',
+                'brand_id.exists' => 'Selected brand does not exist.',
                 'category_id.required' => 'Category is required.',
                 'category_id.exists' => 'Selected category does not exist.',
                 'image.array' => 'Images data must be an array.',
@@ -82,14 +87,16 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $categories = Category::all();
-        return view('admin.products.show', compact('product'));
+        $brands = Brand::all();
+        return view('admin.products.show', compact('product', 'categories', 'brands'));
     }
 
     public function edit($id)
     {
         $product = Product::findOrFail($id);
         $categories = Category::where('status', 1)->get();
-        return view('admin.products.edit', compact('product', 'categories'));
+        $brands = Brand::all();
+        return view('admin.products.edit', compact('product', 'categories', 'brands'));
     }
 
     public function update(Request $request, $id)
@@ -101,10 +108,11 @@ class ProductController extends Controller
                 'name' => 'required|string|max:255',
                 'price' => 'required|numeric|min:0',
                 'stock' => 'required|integer|min:0',
+                'brand_id' => 'required|exists:brands,id',
                 'category_id' => 'required|exists:categories,id',
                 'description' => 'nullable|string',
                 'image' => 'nullable|array',
-                'image.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048', 
+                'image.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             ],
             [
                 'name.required' => 'Product name is required.',
@@ -114,6 +122,8 @@ class ProductController extends Controller
                 'stock.required' => 'Stock quantity is required.',
                 'stock.integer' => 'Stock must be an integer.',
                 'stock.min' => 'Stock must be at least 0.',
+                'brand_id.required' => 'Brand is required.',
+                'brand_id.exists' => 'Selected brand does not exist.',
                 'category_id.required' => 'Category is required.',
                 'category_id.exists' => 'Selected category does not exist.',
                 'image.array' => 'Images data must be an array.',
@@ -131,7 +141,7 @@ class ProductController extends Controller
                 foreach ($product->image as $oldImage) {
                     $oldImagePath = public_path('uploads/' . $oldImage);
                     if (file_exists($oldImagePath)) {
-                        @unlink($oldImagePath); 
+                        @unlink($oldImagePath);
                     }
                 }
             }
@@ -165,7 +175,7 @@ class ProductController extends Controller
                 }
             }
         }
-        
+
         $product->delete();
 
         return redirect()->route('admin.products.list')->with('success', 'Product deleted successfully.');

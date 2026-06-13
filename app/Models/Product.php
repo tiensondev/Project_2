@@ -13,6 +13,7 @@ class Product extends Model
         'name',
         'price',
         'stock',
+        'brand_id',
         'category_id',
         'description',
         'image', 
@@ -34,5 +35,9 @@ class Product extends Model
     public function details()
     {
         return $this->hasMany(ProductDetail::class);
+    }
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
     }
 }

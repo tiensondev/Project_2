@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Brand;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
@@ -22,6 +23,8 @@ class DashboardController extends Controller
         $totalUsers = User::where('role', 'user')->count();
 
         $totalCategories = Category::count();
+
+        $totalBrands = Brand::count();
 
         // Monthly revenue
 
@@ -61,7 +64,9 @@ class DashboardController extends Controller
 
         $weeklyLabels = $weeklyData
             ->pluck('week')
-            ->map(fn($week) => 'Week ' . $week)
+            ->map(function ($week) {
+                return 'Week ' . $week;
+            })
             ->toArray();
 
         $weeklyRevenue = $weeklyData
@@ -114,20 +119,13 @@ class DashboardController extends Controller
             ->sum('total');
 
 
-        // Today's orders
-
-        $todayOrders = DB::table('orders')
-            ->where('status', Order::STATUS_COMPLETED)
-            ->whereDate('created_at', today())
-            ->count();
-
-
         return view('admin.dashboard', compact(
 
             'totalOrders',
             'totalProducts',
             'totalUsers',
             'totalCategories',
+            'totalBrands',
 
             'monthlyLabels',
             'monthlyRevenue',
@@ -143,7 +141,6 @@ class DashboardController extends Controller
             'pendingOrders',
 
             'todayRevenue',
-            'todayOrders'
         ));
     }
 }

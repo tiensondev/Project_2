@@ -38,12 +38,13 @@
                 <th>Category ID</th>
                 <td>{{ $product->category_id }}</td>
             </tr>
+                <tr>
+                    <th>Brand ID</th>
+                <td>{{ $product->brand_id }}</td>
+            </tr>
             <tr>
                 <th>Description</th>
                 <td>{{ $product->description }}</td>
-            </tr>
-            <tr>
-                <th></th>
             </tr>
             <tr>
                 <th>Updated at</th>

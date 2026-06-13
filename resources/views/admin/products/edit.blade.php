@@ -56,6 +56,19 @@
                 </div>
 
                 <div class="mb-3">
+                    <label for="brand_id" class="form-label">Brand *</label>
+                    <select name="brand_id" class="form-control @error('brand_id') is-invalid @enderror" required>
+                        <option value="">Select Brand</option>
+                        @foreach($brands as $brand)
+                    <option value="{{ $brand->id }}" {{ old('brand_id', $product->brand_id) == $brand->id ? 'selected' : '' }}>{{ $brand->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('brand_id')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="mb-3">
                     <label for="category_id" class="form-label">Category *</label>
                     <select name="category_id" class="form-control @error('category_id') is-invalid @enderror" required>
                         <option value="">Select Category</option>
@@ -76,21 +89,21 @@
                     @enderror
 
                     @if(!empty($product->image) && is_array($product->image) && count($product->image) > 0)
-                        <div class="mt-3">
-                            <p class="text-muted small mb-2">Pictures shown on the system:</p>
-                            <div class="d-flex flex-wrap gap-3 p-2 bg-light border rounded">
-                                @foreach($product->image as $index => $img)
-                                <div class="position-relative old-preview-box" style="width: 120px; height: 120px;">
-                                    <img src="{{ asset('uploads/' . $img) }}" class="img-thumbnail w-100 h-100 {{ $index === 0 ? 'border-primary border-2' : '' }}" style="object-fit: cover;" />
-                                    @if($index === 0)
-                                        <span class="badge bg-primary position-absolute bottom-0 start-0 m-1" style="font-size: 10px;">Main</span>
-                                    @else
-                                        <span class="badge bg-secondary position-absolute bottom-0 start-0 m-1" style="font-size: 10px;">Sub</span>
-                                    @endif
-                                </div>
-                                @endforeach
+                    <div class="mt-3">
+                        <p class="text-muted small mb-2">Pictures shown on the system:</p>
+                        <div class="d-flex flex-wrap gap-3 p-2 bg-light border rounded">
+                            @foreach($product->image as $index => $img)
+                            <div class="position-relative old-preview-box" style="width: 120px; height: 120px;">
+                                <img src="{{ asset('uploads/' . $img) }}" class="img-thumbnail w-100 h-100 {{ $index === 0 ? 'border-primary border-2' : '' }}" style="object-fit: cover;" />
+                                @if($index === 0)
+                                <span class="badge bg-primary position-absolute bottom-0 start-0 m-1" style="font-size: 10px;">Main</span>
+                                @else
+                                <span class="badge bg-secondary position-absolute bottom-0 start-0 m-1" style="font-size: 10px;">Sub</span>
+                                @endif
                             </div>
+                            @endforeach
                         </div>
+                    </div>
                     @endif
 
                     <div class="mt-3">
@@ -136,7 +149,7 @@
 
                     const removeBtn = document.createElement('button');
                     removeBtn.type = 'button';
-                    removeBtn.innerHTML = '&times;'; 
+                    removeBtn.innerHTML = '&times;';
                     removeBtn.className = 'btn btn-danger btn-sm position-absolute rounded-circle d-flex align-items-center justify-content-center';
                     removeBtn.style.top = '-8px';
                     removeBtn.style.right = '-8px';
@@ -148,14 +161,14 @@
                     removeBtn.onclick = function() {
                         removeFileFromInput(fileId);
                         wrapper.remove();
-                        refreshNewBadges(); 
+                        refreshNewBadges();
                     };
 
                     wrapper.appendChild(img);
                     wrapper.appendChild(removeBtn);
                     container.appendChild(wrapper);
 
-                    refreshNewBadges(); 
+                    refreshNewBadges();
                 }
 
                 reader.readAsDataURL(file);
@@ -182,7 +195,7 @@
 
     function refreshNewBadges() {
         const previewItems = document.querySelectorAll('#preview-container .preview-item');
-        
+
         previewItems.forEach((item, index) => {
             const oldBadge = item.querySelector('.image-badge-new');
             if (oldBadge) oldBadge.remove();
@@ -194,7 +207,7 @@
 
             if (index === 0) {
                 badge.innerText = 'Main';
-                badge.classList.add('bg-success'); 
+                badge.classList.add('bg-success');
                 imgElement.className = 'img-thumbnail w-100 h-100 border-success border-2';
             } else {
                 badge.innerText = 'Sub';

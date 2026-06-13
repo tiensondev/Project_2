@@ -132,17 +132,6 @@
                                        class="btn btn-info btn-sm text-white">
                                         <i class="fas fa-eye"></i> View
                                     </a>
-
-                                    <form action="{{ route('admin.orders.destroy', $order->id) }}"
-                                          method="POST"
-                                          onsubmit="return confirm('Are you sure you want to delete this order?');">
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <button type="submit" class="btn btn-danger btn-sm">
-                                            <i class="fas fa-trash"></i> Delete
-                                        </button>
-                                    </form>
                                 </div>
                             </td>
                         </tr>

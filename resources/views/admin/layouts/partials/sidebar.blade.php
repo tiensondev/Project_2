@@ -40,14 +40,18 @@
                 <i class="nav-icon bi bi-cart-check"></i>
                 <p>Orders</p>
               </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="{{ route('admin.brands.index') }}" class="nav-link">
+                <i class="nav-icon bi bi-award"></i>
+                <p>Brands</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="{{ route('admin.categories.list') }}" class="nav-link">
                 <i class="nav-icon bi bi-grid"></i>
                 <p>Categories</p>
-              </a>
-
               </a>
             </li>
             <li class="nav-item">

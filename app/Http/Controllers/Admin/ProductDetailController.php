@@ -11,7 +11,7 @@ class ProductDetailController extends Controller
 {
     public function index()
     {
-        $details = ProductDetail::with('product')->latest()->get();
+        $details = ProductDetail::with('product')->get();
         $products = Product::all();
 
         return view(

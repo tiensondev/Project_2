@@ -87,12 +87,16 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <h3 class="fw-bold mb-0">{{ $todayOrders }}</h3>
-                            <p class="mb-0">Today's Orders</p>
+                            <h3 class="fw-bold mb-0">{{ $totalBrands }}</h3>
+                            <p class="mb-0">Brands</p>
                         </div>
-                        <i class="bi bi-list-stars fs-2 opacity-25"></i>
+                        <i class="bi bi-tag fs-2 opacity-25"></i>
                     </div>
-                </div>            
+                </div>   
+                <a href="{{ route('admin.brands.index') }}"
+                    class="card-footer bg-dark bg-opacity-10 text-white text-decoration-none text-center border-0 py-2">
+                    Manage Brands <i class="bi bi-arrow-right-short"></i>    
+            </a>     
             </div>
         </div>
 

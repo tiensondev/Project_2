@@ -120,4 +120,47 @@ class OrderController extends Controller
 
         return view('order_detail', compact('order'));
     }
+
+    public function cancel($id)
+    {
+        $userId = Auth::id();
+
+        $order = Order::where('id', $id)
+            ->where('user_id', $userId)
+            ->with('orderDetails.productDetail')
+            ->firstOrFail();
+
+        if ($order->status !== '1') {
+            return redirect()->back()->with('error', 'You cannot cancel this order because it is already processed or shipped.');
+        }
+
+        DB::beginTransaction();
+
+        try {
+            foreach ($order->orderDetails as $detail) {
+                $productDetail = $detail->productDetail;
+                
+                if ($productDetail) {
+                    $productDetail->stock += $detail->quantity; 
+                    $productDetail->save();
+                }
+            }
+
+            $order->status = '0'; 
+            $order->save();
+
+            DB::commit();
+
+            return redirect()
+                ->route('orders.index') 
+                ->with('success', 'Order cancelled successfully! Stock has been restored.');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return redirect()
+                ->back()
+                ->with('error', 'An error occurred while cancelling the order: ' . $e->getMessage());
+        }
+    }
 }

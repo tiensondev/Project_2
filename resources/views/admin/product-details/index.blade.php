@@ -68,7 +68,7 @@
                         <th>GPU</th>
                         <th>Screen</th>
                         <th>Color</th>
-                        <th>Price</th>
+                        <th style="min-width: 120px;">Price</th>
                         <th>Stock</th>
                         <th class="text-center">Actions</th>
                     </tr>
@@ -90,16 +90,16 @@
                         <td>{{ $detail->screen ?? 'N/A' }}</td>
                         <td>{{ $detail->color ?? 'N/A' }}</td>
 
-                        <td class="text-danger fw-bold">
+                        <td class="text-danger fw-bold text-nowrap">
                             {{ number_format($detail->price, 0, ',', '.') }} đ
                         </td>
 
                         <td>
                             @if($detail->stock <= 5)
                                 <span class="badge bg-warning text-dark">Only {{ $detail->stock }} left</span>
-                            @else
+                                @else
                                 <span class="badge bg-info">{{ $detail->stock }}</span>
-                            @endif
+                                @endif
                         </td>
 
                         <td>

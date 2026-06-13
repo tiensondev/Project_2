@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\Cart;
+use App\Models\Brand;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,12 @@ class AppServiceProvider extends ServiceProvider
             View::share('categories', Category::where('status', 1)->get());
         } else {
             View::share('categories', collect());
+        }
+
+        if (Schema::hasTable('brands')) {
+            View::share('brands', Brand::where('status', 1)->get());
+        } else {
+            View::share('brands', collect());
         }
 
         View::composer('web-layouts.app', function ($view) {

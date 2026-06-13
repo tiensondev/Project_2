@@ -149,25 +149,25 @@
 
             <div class="row g-3">
                 <div class="col-6 col-md-3">
-                    <a href="#" class="d-block hot-product-banner">
+                    <a href="{{ route('products.show', $product->id=9) }}" class="d-block hot-product-banner">
                         <img src="https://laptop88.vn/media/banner/295x380LenovoIdeapadSlim32-moi-nhat.jpg" alt="Lenovo Ideapad">
                     </a>
                 </div>
 
                 <div class="col-6 col-md-3">
-                    <a href="#" class="d-block hot-product-banner">
+                    <a href="{{ route('products.show', $product->id=1) }}" class="d-block hot-product-banner">
                         <img src="https://laptop88.vn/media/banner/295x380MacbookAirM5.jpg" alt="Macbook M5">
                     </a>
                 </div>
 
                 <div class="col-6 col-md-3">
-                    <a href="#" class="d-block hot-product-banner">
+                    <a href="{{ route('products.show', $product->id=5) }}" class="d-block hot-product-banner">
                         <img src="https://laptop88.vn/media/banner/295x380LOQEssential.jpg" alt="HP Victus 15">
                     </a>
                 </div>
 
                 <div class="col-6 col-md-3">
-                    <a href="#" class="d-block hot-product-banner">
+                    <a href="{{ route('products.show', $product->id=10) }}" class="d-block hot-product-banner">
                         <img src="https://laptop88.vn/media/banner/295x380BannerDell152025.jpg" alt="Dell 15 2025">
                     </a>
                 </div>

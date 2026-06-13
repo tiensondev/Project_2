@@ -7,10 +7,11 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ProductDetailController;
 use App\Http\Controllers\Customer\ProductController as CustomerProductController;
 use App\Http\Controllers\Customer\CartController;
-use App\Http\Controllers\Customer\OrderController as CustomerOrderController;
+use App\Http\Controllers\Customer\OrderController;
 use App\Http\Controllers\Customer\ProfileController;
 
 Route::get('/', [CustomerProductController::class, 'home'])->name('home');
@@ -30,14 +31,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/cart/add/{productId}', [CartController::class, 'addToCart'])->name('cart.add');
     Route::patch('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
     Route::delete('/cart/remove', [CartController::class, 'removeFromCart'])->name('cart.remove');
-    Route::post('/checkout', [CustomerOrderController::class, 'checkout'])->name('cart.checkout');
+    Route::post('/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
-    Route::get('/my-orders', [CustomerOrderController::class, 'index'])->name('orders.index');
-    Route::get('/my-orders/{id}', [CustomerOrderController::class, 'show'])->name('orders.show');
-    // Route::post('/my-orders/{id}/cancel', [CustomerOrderController::class, 'cancel'])->name('orders.cancel');
-    // Route::post('/my-orders/{id}/confirm', [CustomerOrderController::class, 'confirmReceived'])->name('orders.confirm');
+    Route::get('/my-orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/my-orders/{id}', [OrderController::class, 'show'])->name('orders.show');
+    Route::post('/orders/{id}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
 });
 
 Route::prefix('/admin')->middleware('admin')->group(function () {
@@ -91,5 +91,9 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
         Route::get('/{id}/edit', [CategoryController::class, 'edit'])->name('admin.categories.edit');
         Route::put('/{id}', [CategoryController::class, 'update'])->name('admin.categories.update');
         Route::delete('/{id}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
+    });
+
+    Route::prefix('/brands')->group(function () {
+        Route::resource('brands',  BrandController::class)->names('admin.brands');
     });
 });

@@ -63,6 +63,17 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+                    <div class="col-md-6 mt-3">
+                        <label for="brand_id" class="form-label">Brand</label>
+                    <select name="brand_id" class="form-control">
+                        <option value="">Select Brand</option>
+                        @foreach($brands as $brand)
+                        <option value="{{ $brand->id }}">
+                            {{ $brand->name }}
+                        </option>
+                        @endforeach
+                    </select>
+                    </div>
                 </div>
 
                 <div class="mb-3">
@@ -87,9 +98,9 @@
                         <div class="position-relative old-preview-box" style="width: 120px; height: 120px;">
                             <img src="{{ asset('uploads/' . $img) }}" class="img-thumbnail w-100 h-100 {{ $index === 0 ? 'border-primary border-2' : '' }}" style="object-fit: cover;" />
                             @if($index === 0)
-                                <span class="badge bg-primary position-absolute bottom-0 start-0 m-1" style="font-size: 10px;">Main</span>
+                            <span class="badge bg-primary position-absolute bottom-0 start-0 m-1" style="font-size: 10px;">Main</span>
                             @else
-                                <span class="badge bg-secondary position-absolute bottom-0 start-0 m-1" style="font-size: 10px;">Sub</span>
+                            <span class="badge bg-secondary position-absolute bottom-0 start-0 m-1" style="font-size: 10px;">Sub</span>
                             @endif
                         </div>
                         @endforeach
@@ -148,14 +159,14 @@
                     removeBtn.onclick = function() {
                         removeFileFromInput(fileId);
                         wrapper.remove();
-                        refreshBadges(); 
+                        refreshBadges();
                     };
 
                     wrapper.appendChild(img);
                     wrapper.appendChild(removeBtn);
                     container.appendChild(wrapper);
 
-                    refreshBadges(); 
+                    refreshBadges();
                 }
 
                 reader.readAsDataURL(file);
@@ -182,7 +193,7 @@
 
     function refreshBadges() {
         const previewItems = document.querySelectorAll('.new-preview-item');
-        
+
         previewItems.forEach((item, index) => {
             const oldBadge = item.querySelector('.image-badge');
             if (oldBadge) oldBadge.remove();
